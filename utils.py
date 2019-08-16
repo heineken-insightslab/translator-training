@@ -12,7 +12,7 @@ def plot_correlation(data, var1, var2):
 
     # Scale:
     data = data.transform(lambda x: (x - x.mean()) / x.std())
-    
+
     # Def inputs and targets:
     inputs = data[var1]
     targets = data[var2]
@@ -76,7 +76,7 @@ def plot_effect_of_median_imputation(dataf, col):
     ax2.set_xlabel(str(col))
     ax2.set_ylabel('Frequency')
 
-    fig.suptitle(f'Result of imputing a column {col}.');
+    fig.suptitle(f'Result of imputing a column {col}.')
 
 def make_boxplot_example():
     x = np.random.normal(loc=50, scale=20, size=1000)
