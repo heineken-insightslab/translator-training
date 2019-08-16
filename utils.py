@@ -40,32 +40,43 @@ def plot_effect_of_median_imputation(dataf, col):
                                                      dataf[col]))
 
     # Plot
-    fig, ax = plt.subplots(figsize=(15, 8))
+    fig, (ax1, ax2) = plt.subplots(figsize=(15, 8), nrows=1, ncols=2)
 
-    ax.hist(dataf['imputed'],
-            bins=np.arange(0, 10, 0.5),
-            alpha=0.4,
-            label='Median Imputation',
-            density=False,
-            color='blue')
+    ax2.hist(dataf['imputed'],
+             bins=np.arange(0, 10, 0.5),
+             alpha=0.4,
+             label='Median Imputation',
+             density=False,
+             color='blue')
+    ymin, ymax = ax2.get_ylim()
 
-    ax.hist(dataf[col],
-            bins=np.arange(0, 10, 0.5),
-            alpha=0.4, label='No Imputation',
-            density=False,
-            color='red')
+    ax1.hist(dataf[col],
+             bins=np.arange(0, 10, 0.5),
+             alpha=0.4, label='No Imputation',
+             density=False,
+             color='red')
+    ax1.set_ylim([ymin, ymax])
 
-    ax.axvline(dataf[col].median(),
-               ls='--',
-               color='k',
-               label='median of MashThickness')
+    ax1.axvline(dataf[col].median(),
+                ls='--',
+                color='k',
+                label='median of MashThickness')
 
-    ax.legend()
+    ax2.axvline(dataf[col].median(),
+            ls='--',
+            color='k',
+            label='median of MashThickness')
 
-    ax.set_xlabel(str(col))
-    ax.set_ylabel('Frequency')
+    ax1.legend()
+    ax2.legend()
 
-    ax.set_title(f'Result of imputing a column {col} with a large number of missing values');
+    ax1.set_xlabel(str(col))
+    ax1.set_ylabel('Frequency')
+
+    ax2.set_xlabel(str(col))
+    ax2.set_ylabel('Frequency')
+
+    fig.suptitle(f'Result of imputing a column {col}.');
 
 def make_boxplot_example():
     x = np.random.normal(loc=50, scale=20, size=1000)
